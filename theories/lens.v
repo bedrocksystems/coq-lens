@@ -1,4 +1,10 @@
+(*
+ * Copyright (C) BedRock Systems Inc. 2019-2020 Gregory Malecha
+ *
+ * SPDX-License-Identifier: LGPL-2.1 WITH BedRock Exception for use over network, see repository root for details.
+ *)
 Set Primitive Projections.
+(* Set Universe Polymorphism. *)
 
 Record Lens (a b c d : Type) : Type :=
 { view : a -> c
@@ -8,7 +14,7 @@ Record Lens (a b c d : Type) : Type :=
 Arguments over {_ _ _ _} _ _ _.
 Arguments view {_ _ _ _} _ _.
 
-Definition lens_compose {a b c d e f : Type}
+Definition compose {a b c d e f : Type}
            (l1 : Lens a b c d) (l2 : Lens c d e f)
 : Lens a b e f :=
 {| view := fun x : a => view l2 (view l1 x)
