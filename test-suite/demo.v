@@ -1,6 +1,12 @@
-Require Import Coq.Strings.String.
-Require Import Lens.Lens.
+(*
+ * Copyright (C) BedRock Systems Inc. 2019-2020 Gregory Malecha
+ *
+ * SPDX-License-Identifier: LGPL-2.1 WITH BedRock Exception for use over network, see repository root for details.
+ *)
+Require Import Lens.notation.
 Require Import Lens.TC.TC.
+
+Set Default Proof Using "Type".
 
 Record Oops : Set :=
 { oops1 : nat }.
@@ -19,12 +25,16 @@ Run TemplateProgram (genLens Foo).
 About _foo.
 About _bar.
 
-Goal view _foo {| foo := 3 ; bar := true |} = 3.
+Goal {| foo := 3 ; bar := true |} .^ _foo = 3.
 Proof. reflexivity. Qed.
 
-Goal view _bar {| foo := 3 ; bar := true |} = true.
+Goal {| foo := 3 ; bar := true |} .^ _bar = true.
 Proof. reflexivity. Qed.
 
+Goal {| foo := 3 ; bar := true |} & _bar .= false = {| foo := 3 ; bar := false |}.
+Proof. reflexivity. Qed.
 
-Goal set _bar  false {| foo := 3 ; bar := true |} = {| foo := 3 ; bar := false |}.
+Goal forall a b,
+    {| foo := a ; bar := b |} & _bar .= false
+                              & _foo .= 21 = {| foo := 21 ; bar := false |}.
 Proof. reflexivity. Qed.

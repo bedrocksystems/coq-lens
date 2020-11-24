@@ -7,7 +7,7 @@ From MetaCoq.Template Require Import
      monad_utils Ast Loader TemplateMonad.
 Import MonadNotation.
 
-Require Import Lens.Lens.
+Require Import Lens.lens.
 
 Set Primitive Projections.
 

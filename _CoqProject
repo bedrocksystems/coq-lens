@@ -1,4 +1,5 @@
 -Q theories Lens
 
-theories/Lens.v
+theories/lens.v
+theories/notation.v
 theories/TC/TC.v
